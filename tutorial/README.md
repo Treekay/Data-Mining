@@ -1,7 +1,7 @@
 Materials for Data Mining Course
 ============================================
 
-This repo is for holding the materials for the DM summer course in SYSU.
+This repo is for holding the materials for the DM course.
 
 Please navigate into the subfolders to see specific instructions for each of the materials.
 
