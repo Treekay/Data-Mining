@@ -2,7 +2,7 @@ import numpy as np
 import csv
 
 TEST_TIME = 100
-POINT_NUM = [5, 10, 20, 30, 40, 50, 60, 70, 80, 100]
+POINT_NUM = [5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 200, 500, 1000]
 
 # 写入文件
 csv_file = csv.writer(open('res2.csv', 'w', newline=''), dialect='excel')
@@ -25,7 +25,7 @@ for k in range(len(POINT_NUM)):
             # 判断随机点是否在函数曲线下方
             if y < x**3:
                 count += 1
-        # 用在函数曲线下方 点数除以总点数得到积分
+        # 点数除以总点数得到比例, 比例乘上体积1得到积分
         Integration.append(count / POINT_NUM[k])
 
     # 记录均值和方差并写入表格
