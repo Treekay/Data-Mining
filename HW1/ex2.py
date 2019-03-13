@@ -2,7 +2,7 @@ import numpy as np
 import csv
 
 TEST_TIME = 100
-POINT_NUM = [5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 200, 500, 1000]
+POINT_NUM = [5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 300]
 
 # 写入文件
 csv_file = csv.writer(open('res2.csv', 'w', newline=''), dialect='excel')
