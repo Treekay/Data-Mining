@@ -17,7 +17,7 @@ for k in range(len(POINT_NUM)):
     row.append(POINT_NUM[k])
 
     # 每种投点个数重复20次
-    for t in range(20):
+    for t in range(TEST_TIME):
         count = 0
         for i in range(POINT_NUM[k]):
             x = np.random.rand()
