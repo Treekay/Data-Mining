@@ -8,8 +8,8 @@ from sklearn import preprocessing
 DATA_PATH = r'./dataForTraining.txt'
 TEST_PATH = r'./dataForTesting.txt'
 
-ITERATION_TIMES = 1500000
-DRAW_STEP = 100
+ITERATION_TIMES = 150000
+DRAW_STEP = 1000
 
 train_error = []
 test_error = []
@@ -35,12 +35,12 @@ def randGradient(a_current, b_current, c_current, points, learningRate):
     x = points[i, 0]
     y = points[i, 1]
     z = points[i, 2]
-    a_gradient = -1 * x * (z - (a_current * x + b_current * y + c_current))
-    b_gradient = -1 * y * (z - (a_current * x + b_current * y + c_current))
-    c_gradient = -1 * (z - (a_current * x + b_current * y + c_current))
-    new_a = a_current - (learningRate * a_gradient)
-    new_b = b_current - (learningRate * b_gradient)
-    new_c = c_current - (learningRate * c_gradient)
+    a_gradient = x * (z - (a_current * x + b_current * y + c_current))
+    b_gradient = y * (z - (a_current * x + b_current * y + c_current))
+    c_gradient = z - (a_current * x + b_current * y + c_current)
+    new_a = a_current + (learningRate * a_gradient)
+    new_b = b_current + (learningRate * b_gradient)
+    new_c = c_current + (learningRate * c_gradient)
     return [new_a, new_b, new_c]
 
 
