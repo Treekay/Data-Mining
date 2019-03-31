@@ -8,8 +8,8 @@ from sklearn import preprocessing
 DATA_PATH = r'./dataForTraining.txt'
 TEST_PATH = r'./dataForTesting.txt'
 
-ITERATION_TIMES = 150000
-DRAW_STEP = 1000
+ITERATION_TIMES = 20000
+DRAW_STEP = 100
 
 train_error = []
 test_error = []
@@ -30,17 +30,21 @@ def computeError(a, b, c, points):
 
 
 def randGradient(a_current, b_current, c_current, points, learningRate):
-    # 随机梯度下降
-    i = np.random.randint(len(points)/3)
-    x = points[i, 0]
-    y = points[i, 1]
-    z = points[i, 2]
-    a_gradient = x * (z - (a_current * x + b_current * y + c_current))
-    b_gradient = y * (z - (a_current * x + b_current * y + c_current))
-    c_gradient = z - (a_current * x + b_current * y + c_current)
-    new_a = a_current + (learningRate * a_gradient)
-    new_b = b_current + (learningRate * b_gradient)
-    new_c = c_current + (learningRate * c_gradient)
+    new_a = a_current
+    new_b = b_current
+    new_c = c_current
+    N = float(len(points))
+    # 计算每个维度theta的梯度，并运用一个梯度去更新它
+    for i in range(0, len(points)):
+        x = points[i, 0]
+        y = points[i, 1]
+        z = points[i, 2]
+        a_gradient = x * (z - (new_a * x + new_b * y + new_c))
+        b_gradient = y * (z - (new_a * x + new_b * y + new_c))
+        c_gradient = z - (new_a * x + new_b * y + new_c)
+        new_a = new_a + (learningRate * a_gradient)
+        new_b = new_b + (learningRate * b_gradient)
+        new_c = new_c + (learningRate * c_gradient)
     return [new_a, new_b, new_c]
 
 
@@ -91,6 +95,7 @@ if __name__ == "__main__":
     plt.subplot(121)
     plt.plot(range(1, iteration_times + 1, DRAW_STEP),
              train_error, c='blue', label='train loss')
+    plt.grid(linestyle='--')
     plt.legend()
     plt.ylim(0, 1.00)
     plt.ylabel('train loss')
@@ -100,6 +105,7 @@ if __name__ == "__main__":
     plt.subplot(122)
     plt.plot(range(1, iteration_times + 1, DRAW_STEP),
              test_error, c='red', label='test loss')
+    plt.grid(linestyle='--')
     plt.legend()
     plt.ylim(0, 1.00)
     plt.ylabel('test loss')

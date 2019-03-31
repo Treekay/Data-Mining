@@ -9,7 +9,7 @@ DATA_PATH = r'./dataForTraining.txt'
 TEST_PATH = r'./dataForTesting.txt'
 
 ITERATION_TIMES = 150000
-DRAW_STEP = 1000
+DRAW_STEP = 100
 
 train_error = []
 test_error = []
@@ -38,9 +38,11 @@ def stepGradient(a_current, b_current, c_current, points, learningRate):
         x = points[i, 0]
         y = points[i, 1]
         z = points[i, 2]
+        # 计算每个维度的参数
         a_gradient += x * (z - (a_current * x + b_current * y + c_current)) / N
         b_gradient += y * (z - (a_current * x + b_current * y + c_current)) / N
         c_gradient += (z - (a_current * x + b_current * y + c_current)) / N
+    # 求每个维度的梯度的累加和
     new_a = a_current + (learningRate * a_gradient)
     new_b = b_current + (learningRate * b_gradient)
     new_c = c_current + (learningRate * c_gradient)
@@ -66,7 +68,7 @@ def gradientDescent(points, starting_a, starting_b, starting_c, learning_rate, i
 if __name__ == "__main__":
     # 测试数据
     testData = readFile(TEST_PATH)
-    # 归一化
+    # 标准化
     testData = preprocessing.scale(testData)
 
     # 读取文件
@@ -75,7 +77,7 @@ if __name__ == "__main__":
     points = preprocessing.scale(points)
     # 参数设置
     iteration_times = ITERATION_TIMES
-    learning_rate = 0.00015
+    learning_rate = 0.0002
     initial_a = 0.0  # initial a`
     initial_b = 0.0  # initial b
     initial_c = 0.0  # initial c
@@ -92,8 +94,8 @@ if __name__ == "__main__":
     # 训练错误率随迭代次数的变化
     plt.figure()
     plt.subplot(121)
-    plt.plot(range(1, iteration_times + 1, DRAW_STEP), train_error,
-             c='blue', label='train loss')
+    plt.plot(range(1, iteration_times + 1, DRAW_STEP), 
+             train_error, c='blue', label='train loss')
     plt.grid(linestyle='--')
     plt.legend()
     plt.ylim(0, 1.00)
@@ -102,8 +104,8 @@ if __name__ == "__main__":
     plt.ylim(0, np.max(train_error) * 1.2)
     # 测试错误率随迭代次数的变化
     plt.subplot(122)
-    plt.plot(range(1, iteration_times + 1, DRAW_STEP), test_error,
-             c='blue', label='test loss')
+    plt.plot(range(1, iteration_times + 1, DRAW_STEP), 
+             test_error, c='red', label='test loss')
     plt.grid(linestyle='--')
     plt.legend()
     plt.ylim(0, 1.00)
